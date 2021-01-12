@@ -44,7 +44,8 @@ public final class Lists {
      * @return created list
      */
     public static <E> List<E> of(E elem) {
-        ArrayList<E> result = new ArrayList<>();
+        //ArrayList<E> result = new ArrayList<>();
+        ArrayList<E> result = null;
         result.add(elem);
         return result;
     }
@@ -58,7 +59,7 @@ public final class Lists {
      * @return created list
      */
     public static <E> List<E> of(E elem1, E elem2) {
-        ArrayList<E> result = new ArrayList<>();
+        ArrayList<E> result=new ArrayList<>();
         result.add(elem1);
         result.add(elem2);
         return result;
@@ -74,7 +75,7 @@ public final class Lists {
      * @return created list
      */
     public static <E> List<E> of(E elem1, E elem2, E elem3) {
-        ArrayList<E> result = new ArrayList<>();
+        ArrayList<E> result = null;
         result.add(elem1);
         result.add(elem2);
         result.add(elem3);
@@ -94,7 +95,7 @@ public final class Lists {
      */
     @SafeVarargs
     public static <E> List<E> of(E elem1, E elem2, E elem3, E elem4, E... rest) {
-        if (rest == null) {
+        if (rest==null) {
             throw new IllegalArgumentException("rest must not be null"); //$NON-NLS-1$
         }
         ArrayList<E> result = new ArrayList<>();
