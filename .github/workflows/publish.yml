@@ -5,7 +5,7 @@ on: [push]
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     env:
       HADOOP_VERSION: 2.10.1
 
