@@ -56,20 +56,23 @@ jobs:
             curl -sL https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar -xz -C /opt
           fi
 
-      - name: Publish Maven modules
-        run: |
-          ./mvnw -B clean deploy -DskipTests
-        env:
-          MAVEN_USERNAME: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          MAVEN_PASSWORD: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.count=3
-          HADOOP_CMD: /opt/hadoop-${{env.HADOOP_VERSION}}/bin/hadoop
+      # - name: Publish Maven modules
+      #   run: |
+      #     ./mvnw -B clean deploy -DskipTests
+      #   env:
+      #     MAVEN_USERNAME: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     MAVEN_PASSWORD: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.count=3
+      #     HADOOP_CMD: /opt/hadoop-${{env.HADOOP_VERSION}}/bin/hadoop
 
       - name: Test Gradle modules
         run: |
           cd gradle
-          ./gradlew -i clean build install assembleTemplates uploadArchives
+          ./gradlew -i clean build install uploadArchives
           cd -
+        env:
+          MAVEN_USERNAME: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          MAVEN_PASSWORD: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v1
